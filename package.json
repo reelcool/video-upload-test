@@ -1,0 +1,20 @@
+{
+  "name": "video-uploads",
+  "version": "1.0.0",
+  "description": "Testing out the set-up for video uploading",
+  "main": "app.js",
+  "dependencies": {
+    "body-parser": "^1.14.1",
+    "express": "^4.13.3",
+    "fs": "0.0.2",
+    "multer": "^1.0.5",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1", 
+    "start": "nodemon app.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
