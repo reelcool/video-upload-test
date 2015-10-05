@@ -1,4 +1,5 @@
-var app = require('express')();
+var express = require('express');
+var app = express();
 var path = require('path');
 var bodyParser = require('body-parser');
 var fs = require('fs');
@@ -19,14 +20,16 @@ var upload = multer({
 
 app.use(bodyParser.raw());
 
+
 app.get('/', function(req, res) {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
-
 
 app.post('/', upload.single('video'), function(req, res) {
     console.log(req.file);
     res.send();
 });
+
+app.use(express.static(path.join(__dirname, './videos')));
 
 app.listen(3000);
