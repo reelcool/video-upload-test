@@ -2,7 +2,7 @@
 
 <body>
     <form action="/" method="post" enctype="multipart/form-data">
-        <input type="file" name="video" accept="video/*" capture>
+        <input type="file" id="fileinput" >
         <input type="submit" value="Upload">
     </form>
 
@@ -12,7 +12,7 @@
     </section>
 
     <script type="text/javascript">
-	    var FILE = '/bunny.webm';
+	    var FILE = 'bunny.webm';
 	    var NUM_CHUNKS = 25;
 	    var video = document.querySelector('video');
 
@@ -81,18 +81,47 @@
 	    }, false);
 
 	    function GET(url, callback) {
-	        var xhr = new XMLHttpRequest();
-	        xhr.open('GET', url, true);
-	        xhr.responseType = 'arraybuffer';
-	        xhr.send();
 
-	        xhr.onload = function(e) {
-	            if (xhr.status != 200) {
-	                alert("Unexpected status code " + xhr.status + " for " + url);
-	                return false;
-	            }
-	            callback(new Uint8Array(xhr.response));
-	        };
+
+          var theFileInput = document.getElementById('fileinput');
+
+          theFileInput.addEventListener('change', function (e) {
+
+
+              console.log("changed input");
+
+              var file = theFileInput.files[0];
+              var reader = new FileReader();
+
+              console.log(file);
+              console.log("file size:", Math.round(file.size / 1000) / 1000, "MB");
+
+              reader.readAsArrayBuffer(file);
+
+              reader.onloadend = function () {
+                  console.log("reading file finished");
+                  callback(new Uint8Array(reader.result));
+              };
+
+          });
+
+
+
+
+	        // var xhr = new XMLHttpRequest();
+	        // xhr.open('GET', url, true);
+	        // xhr.responseType = 'arraybuffer';
+	        // xhr.send();
+
+	        // xhr.onload = function(e) {
+	        //     if (xhr.status != 200) {
+	        //         alert("Unexpected status code " + xhr.status + " for " + url);
+	        //         return false;
+	        //     }
+
+	        // };
+
+
 	    }
     </script>
 </body>
